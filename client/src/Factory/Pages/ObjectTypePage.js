@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Table, Tag, Popconfirm, Checkbox, Tooltip } from "antd";
 
 import useLoading from "../../hooks/useLoading";
 import useObjectTypes from "../../hooks/useObjectTypes";
+import useSocket from "../../hooks/useSocket";
 
 import Icon from "../../Components/Icon";
 import FieldAndObjectTypeForm from "../../Components/FieldAndObjectTypeForm";
@@ -13,6 +14,18 @@ export default function ObjectTypePage() {
 
   const { objectTypes, loading, addObjectType, deleteObjectType } =
     useObjectTypes();
+
+  const { socket } = useSocket();
+
+  useEffect(() => {
+    socket.on("test", (data) => {
+      console.log(data);
+    });
+
+    return () => {
+      socket.off("test");
+    };
+  }, [socket]);
 
   return !isAddingNewObjectType ? (
     <ObjectList

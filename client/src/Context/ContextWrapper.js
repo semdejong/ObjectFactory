@@ -1,5 +1,10 @@
 import { LoadingContextProvider } from "./LoadingContext";
+import { SocketContextProvider } from "./SocketContext";
 
 export default function ContextWrapper({ children }) {
-  return <LoadingContextProvider>{children}</LoadingContextProvider>;
+  return (
+    <LoadingContextProvider>
+      <SocketContextProvider>{children}</SocketContextProvider>
+    </LoadingContextProvider>
+  );
 }

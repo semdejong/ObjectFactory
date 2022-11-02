@@ -1,11 +1,12 @@
 require("dotenv").config();
 
-const path = require("path");
-
-const express = require("express");
-const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const express = require("express");
+const mongoose = require("mongoose");
+const path = require("path");
+
+const { initializeSocketService } = require("./socket/initializeSocketService");
 
 const app = express();
 
@@ -59,6 +60,14 @@ if (process.env.NODE_ENV !== "production") {
     next();
   });
 }
+
+//Socket.io
+const socket = initializeSocketService(3002);
+
+app.use(async (req, res, next) => {
+  req.socket = socket;
+  next();
+});
 
 //Add routes
 const testRouter = require("./routes/test");

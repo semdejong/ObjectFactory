@@ -50,7 +50,6 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
-    //Find the user with the email and return early if not found
     const user = await User.findOne({ email: req.body.email });
     if (!user)
       return res
