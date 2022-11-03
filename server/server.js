@@ -52,7 +52,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.resolve(__dirname, "../client/build")));
 
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV !== "production" && false) {
   app.use(async (req, res, next) => {
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     await delay(1200);
